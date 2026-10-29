@@ -9,6 +9,7 @@ import { isElectron } from "./env";
 import { startAppServices } from "./appInit";
 import { AppRoot } from "./AppRoot";
 import { clearChunkReloadGuard, reloadOnceForChunkLoadError } from "./lib/chunkReloadGuard";
+import { toastManager } from "./components/ui/toast";
 
 const router = startAppServices();
 
@@ -51,6 +52,11 @@ export const startup = Promise.all([
         )}
       </React.StrictMode>,
     );
+    toastManager.add({
+      type: "success",
+      title: "Hello from your fork 👋",
+      description: "Built from the mine branch.",
+    });
   })
   .catch((error: unknown) => {
     if (reloadScheduled) return;
